@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 167516080}
   - component: {fileID: 167516079}
   - component: {fileID: 167516078}
+  - component: {fileID: 167516083}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -242,6 +243,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &167516083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 167516077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 214e8359a34d943c8aa8af56ac57538d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 10
+  scoreWhenKilled: 100
+  deathPrefab: {fileID: 0}
 --- !u!1 &244034972
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,7 +420,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &429290128
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -848,7 +864,7 @@ GameObject:
   - component: {fileID: 1012807604}
   - component: {fileID: 1012807608}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: prefab_Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -956,7 +972,7 @@ MonoBehaviour:
   targetTag: Player
   range: 20
   fireDelay: 0.5
-  bulletPatternPrefab: {fileID: 429290127}
+  bulletPatternPrefab: {fileID: 7826711166176366968, guid: 1e55b245e2dbf4ca4885de8f306e8c21, type: 3}
   maxHealth: 10
 --- !u!1 &1176385361
 GameObject:
