@@ -278,6 +278,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8299216105315785912}
   - component: {fileID: 1935321809388026881}
+  - component: {fileID: 1892375553798735219}
   m_Layer: 5
   m_Name: Power_Horizontal_Layout
   m_TagString: Untagged
@@ -332,3 +333,17 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &1892375553798735219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8331318041721106243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e627001cd623eadb888cc11e97a4181, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textMeshPro: {fileID: 340068034706527239}
+  data: {fileID: 11400000, guid: 06536d6c572948fd4b7676150ef052ec, type: 2}

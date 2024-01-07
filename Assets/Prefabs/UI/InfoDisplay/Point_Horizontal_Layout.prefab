@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 867488962220609553}
   - component: {fileID: 1087629915079950428}
+  - component: {fileID: 5789053669936912452}
   m_Layer: 5
   m_Name: Point_Horizontal_Layout
   m_TagString: Untagged
@@ -64,6 +65,21 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &5789053669936912452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3312880573612930327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 140a534f0921a8d71881f4183b09efff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textMeshPro: {fileID: 6982875278475165918}
+  current: {fileID: 11400000, guid: 22ce413b807e25eb09dbe2553d0886a9, type: 2}
+  max: {fileID: 11400000, guid: 7cd3bbe436fa18427b32c956c119d200, type: 2}
 --- !u!1 &7828188765212229225
 GameObject:
   m_ObjectHideFlags: 0

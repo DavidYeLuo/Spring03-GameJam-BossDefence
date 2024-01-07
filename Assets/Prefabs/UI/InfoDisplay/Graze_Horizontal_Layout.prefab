@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1243263908223492569}
   - component: {fileID: 8088711491012929004}
+  - component: {fileID: 1736648990408276549}
   m_Layer: 5
   m_Name: Graze_Horizontal_Layout
   m_TagString: Untagged
@@ -64,6 +65,20 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &1736648990408276549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3825751518653880731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e627001cd623eadb888cc11e97a4181, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textMeshPro: {fileID: 856834270916687709}
+  data: {fileID: 11400000, guid: 2260eafced1f412cdbe4f9ac53c14692, type: 2}
 --- !u!1 &6776613969911778289
 GameObject:
   m_ObjectHideFlags: 0
