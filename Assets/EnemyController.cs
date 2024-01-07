@@ -4,30 +4,86 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    // shown
+    [Tooltip("movement speed in m/s")]
     [SerializeField] private float speed = 10f;
-    [SerializeField] private Transform current_target;
-    private Vector3 destination;
-    private string targetTag = "Player";
-    private bool enabled_moving = true;
+    [Tooltip("the type (tag) of entity which this enemy will target-- Player by default, but healers should have it set to Enemy.")]
+    [SerializeField] private string targetTag = "Player";
+    [Tooltip("the range at which the enemy will attack the target")]
+    [SerializeField] private float range = 2f;
+    [Tooltip("the delay between shots")]
+    [SerializeField] private float fireDelay = 0.5f;
+    [Tooltip("the bullet prefab generated on each shot")]
+    [SerializeField] private GameObject bulletPatternPrefab;
+    [SerializeField] private float maxHealth;
+
+    // internal (hidden)
+    private Transform current_target;
+    private Vector3 moveDirection;
+    private string behaviorState = "chasing";
+    private const float levelSize = 20f; //needed to check for out-of-bounds move target
+    private float health;
+    private float nextShotTimer = 0f;
 
     void Start()
     {
-        destination = Vector3.zero;
+        moveDirection = Vector3.zero;
+        health = maxHealth;
     }
 
     void Update()
     {
-        if(enabled_moving)
+        nextShotTimer -= Time.deltaTime;
+        behaviorTree();
+        switch(behaviorState)
         {
-            Vector3 moveDirection = new Vector3(destination.x - transform.position.x, 0f, destination.z - transform.position.z);
-            // ^ the vertical component of moveDirection is removed
-            transform.Translate(moveDirection.normalized*Time.deltaTime*speed);
+            case "chasing":
+                moveDirection = new Vector3(current_target.position.x - transform.position.x, 0f, current_target.position.z - transform.position.z);
+                transform.Translate(moveDirection.normalized*Time.deltaTime*speed);
+                break;
+            case "fleeing":
+                // it's the same as chasing state, but reverse direction. healers can't flee.
+                moveDirection = new Vector3(current_target.position.x - transform.position.x, 0f, current_target.position.z - transform.position.z);
+                transform.Translate(moveDirection.normalized*Time.deltaTime*speed*(-1f));
+                break;
+            case "attacking":
+                if(nextShotTimer <= 0f)
+                {
+                    Instantiate(bulletPatternPrefab, transform.position, Quaternion.LookRotation(current_target.position - transform.position, Vector3.up));
+                    nextShotTimer = fireDelay;
+                }
+                break;
+            case "none":
+                break;
+            default:
+                print("error: no state given");
+                break;
         }
     }
 
-    private void AI() //placeholder! basic movement and attacking
+    private void behaviorTree() //placeholder! basic movement and attacking
     {
-        //
+        if(health/maxHealth < 0.5f && targetTag == "Player")
+        {
+            behaviorState = "fleeing";
+        }
+        else
+        {
+            current_target = GetClosestWithTag(targetTag).transform;
+            if(!current_target)
+            {
+                behaviorState = "none"; // there are no valid targets!
+            }
+            // ^ the vertical component of moveDirection is removed
+            if(Vector3.Distance(current_target.position, transform.position) <= range)
+            {
+                behaviorState = "attacking";
+            }
+            else
+            {
+                behaviorState = "chasing";
+            }
+        }
     }
 
     private GameObject GetClosestWithTag(string input_tag)
