@@ -7,11 +7,22 @@ public class HealthManager : MonoBehaviour
     [SerializeField] private float maxHealth = 10f;
     [SerializeField] private float scoreWhenKilled = 100f;
     [SerializeField] private GameObject deathPrefab;
+
+    [Space]
+    [Header("Data References")]
+    [SerializeField] private bool useDataReference;
+    [SerializeField] private IntReference healthReference;
+    [SerializeField] private IntReference maxHealthReference;
     private float health;
     // Start is called before the first frame update
     void Start()
     {
         health = maxHealth;
+        if (useDataReference)
+        {
+            healthReference.SetData((int)health);
+            maxHealthReference.SetData((int)maxHealth);
+        }
     }
 
     // Update is called once per frame
@@ -23,9 +34,10 @@ public class HealthManager : MonoBehaviour
     public float scoreFromDamage(float damageAmount) // if damage results in death, will return the score for killing this enemy
     {
         health -= damageAmount;
-        if(health <= 0f)
+        if (health <= 0f)
         {
-            if(deathPrefab)
+            if (useDataReference) { healthReference.SetData(0); }
+            if (deathPrefab)
             {
                 Instantiate(deathPrefab);
             }
@@ -33,10 +45,11 @@ public class HealthManager : MonoBehaviour
             return scoreWhenKilled;
 
         }
-        else if(health > maxHealth)
+        else if (health > maxHealth)
         {
             health = maxHealth;
         }
+        if (useDataReference) { healthReference.SetData((int)health); }
         return 0f;
     }
 }

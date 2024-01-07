@@ -1060,6 +1060,9 @@ MonoBehaviour:
   maxHealth: 10
   scoreWhenKilled: 100
   deathPrefab: {fileID: 0}
+  useDataReference: 1
+  healthReference: {fileID: 11400000, guid: 3e5e89241a9b0df35a92cf47293f67cf, type: 2}
+  maxHealthReference: {fileID: 11400000, guid: b080b8b6aef448c4ca14a49244b46d0a, type: 2}
 --- !u!114 &1899595213
 MonoBehaviour:
   m_ObjectHideFlags: 0
