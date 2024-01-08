@@ -24,6 +24,8 @@ public class EnemyController : MonoBehaviour
     private const float levelSize = 20f; //needed to check for out-of-bounds move target
     private float health;
     private float nextShotTimer = 0f;
+    private bool inactive = false; // to be used for spawning in, destroying self, etc..
+    // the same smoke effect can be used for spawning and disappearing the bodies.
 
     void Start()
     {
@@ -33,6 +35,10 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
+        if(inactive)
+        {
+            return;
+        }
         nextShotTimer -= Time.deltaTime;
         behaviorTree();
         switch(behaviorState)
