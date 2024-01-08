@@ -8,7 +8,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed = 2f;
 
     // private statuses
-    private bool status_frozen = false;
+    
+
     // Start is called before the first frame update
     void Start()
     {
