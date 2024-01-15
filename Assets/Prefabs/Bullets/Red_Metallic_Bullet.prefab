@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3545901045462136775}
   - component: {fileID: 1205596546966718217}
   - component: {fileID: 1862803118170310562}
+  - component: {fileID: -5026999708547039708}
   m_Layer: 0
   m_Name: Red_Metallic_Bullet
   m_TagString: Untagged
@@ -105,3 +106,18 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-5026999708547039708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5163076953433466091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52b715d1e2c424354a6cdcbc423b3a57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
+  affectedTag: Player
+  damage: 5
