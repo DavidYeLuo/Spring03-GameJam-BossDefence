@@ -289,6 +289,9 @@ MonoBehaviour:
   maxHealth: 10
   scoreWhenKilled: 100
   deathPrefab: {fileID: 0}
+  useDataReference: 0
+  healthReference: {fileID: 0}
+  maxHealthReference: {fileID: 0}
 --- !u!1 &244034972
 GameObject:
   m_ObjectHideFlags: 0
@@ -1050,6 +1053,7 @@ MonoBehaviour:
   fireDelay: 0.5
   bulletPatternPrefab: {fileID: 1924517051003201435, guid: fd5baf92a78db4d1bb63cba7c5c47377, type: 3}
   maxHealth: 10
+  standTimeMax: 1
 --- !u!1 &1176385361
 GameObject:
   m_ObjectHideFlags: 0

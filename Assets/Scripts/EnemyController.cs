@@ -16,79 +16,78 @@ public class EnemyController : MonoBehaviour
     [Tooltip("the bullet prefab generated on each shot")]
     [SerializeField] private GameObject bulletPatternPrefab;
     [SerializeField] private float maxHealth;
+    [SerializeField] private float standTimeMax = 1f;
 
     // internal (hidden)
     private Transform current_target;
-    private Vector3 moveDirection;
-    private string behaviorState = "chasing";
     private const float levelSize = 20f; //needed to check for out-of-bounds move target
-    private float health;
-    private float nextShotTimer = 0f;
-    private bool inactive = false; // to be used for spawning in, destroying self, etc..
-    // the same smoke effect can be used for spawning and disappearing the bodies.
+
+    private Vector3 targetPosition = Vector3.zero;
+    private bool isMoving = false;
+    private Vector3 velocity = Vector3.zero;
+    private float standAndBurstTimer = 0f;
+    private float shotTimer = 0f;
+    private float shotTimerMax = 0.3f;
 
     void Start()
     {
-        moveDirection = Vector3.zero;
-        health = maxHealth;
+        targetPosition = Vector3.zero;
+        // standAndBurstTimer = Random.Range(0f,standTimeMax);
     }
 
     void Update()
     {
-        if(inactive)
+        if(isMoving)
         {
-            return;
-        }
-        nextShotTimer -= Time.deltaTime;
-        behaviorTree();
-        switch(behaviorState)
-        {
-            case "chasing":
-                moveDirection = new Vector3(current_target.position.x - transform.position.x, 0f, current_target.position.z - transform.position.z);
-                transform.Translate(moveDirection.normalized*Time.deltaTime*speed);
-                break;
-            case "fleeing":
-                // it's the same as chasing state, but reverse direction. healers can't flee.
-                moveDirection = new Vector3(current_target.position.x - transform.position.x, 0f, current_target.position.z - transform.position.z);
-                transform.Translate(moveDirection.normalized*Time.deltaTime*speed*(-1f));
-                break;
-            case "attacking":
-                if(nextShotTimer <= 0f)
-                {
-                    Instantiate(bulletPatternPrefab, transform.position, Quaternion.LookRotation(current_target.position - transform.position, Vector3.up));
-                    nextShotTimer = fireDelay;
-                }
-                break;
-            case "none":
-                break;
-            default:
-                print("error: no state given");
-                break;
-        }
-    }
-
-    private void behaviorTree() //placeholder! basic movement and attacking
-    {
-        if(health/maxHealth < 0.5f && targetTag == "Player")
-        {
-            behaviorState = "fleeing";
+            move();
         }
         else
         {
-            current_target = GetClosestWithTag(targetTag).transform;
+            standAndBurst();
+        }
+    }
+
+    private void move()
+    {
+        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, 0.5f);
+        if(Vector3.Distance(transform.position, targetPosition) < 0.01f)
+        {
+            isMoving = false;
+        }
+    }
+
+    private void setMoveTarget(Vector3 newPos)
+    {
+        targetPosition = newPos;
+        isMoving = true;
+    }
+
+
+    private void standAndBurst()
+    {
+        if(!current_target)
+        {
+            current_target = GetClosestWithTag("Player").transform;
             if(!current_target)
             {
-                behaviorState = "none"; // there are no valid targets!
+                return;
             }
-            // ^ the vertical component of moveDirection is removed
-            if(Vector3.Distance(current_target.position, transform.position) <= range)
-            {
-                behaviorState = "attacking";
-            }
-            else
-            {
-                behaviorState = "chasing";
-            }
+        }
+        shotTimer -= Time.deltaTime;
+        if(shotTimer <= 0f)
+        {
+            Instantiate(bulletPatternPrefab, transform.position, Quaternion.LookRotation(current_target.position - transform.position));
+            shotTimer = shotTimerMax;
+        }
+        standAndBurstTimer -= Time.deltaTime;
+        if(standAndBurstTimer <= 0f)
+        {
+            standAndBurstTimer = standTimeMax;
+            // setMoveTarget(current_target.position);
+            float rand_x = Mathf.Clamp(current_target.position.x + Random.Range(-5f, 5f), -levelSize, levelSize);
+            float rand_z = Mathf.Clamp(current_target.position.z + Random.Range(-5f, 5f), -levelSize, levelSize);
+            setMoveTarget(new Vector3(rand_x, 0f, rand_z));
+            shotTimer = 0f;
         }
     }
 
